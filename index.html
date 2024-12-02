@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IBM vs Microsoft Stock Comparison</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .chart-container {
+            height: 400px;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chart-container">
+            <canvas id="priceChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="volumeChart"></canvas>
+        </div>
+    </div>
+    <script>
+        const ibmData = {
+            dates: ["2024-11-25", "2024-11-26", "2024-11-27", "2024-11-29", "2024-12-02"],
+            prices: [226.13, 228.83, 226.92, 227.41, 227.39],
+            volumes: [7187200, 4448100, 2995121, 2640300, 1876665]
+        };
+
+        const msftData = {
+            dates: ["2024-11-25", "2024-11-26", "2024-11-27", "2024-11-29", "2024-12-02"],
+            prices: [418.79, 427.99, 422.99, 423.46, 430.98],
+            volumes: [27651300, 23439600, 18332444, 16271900, 19925893]
+        };
+
+        // Create price comparison chart
+        new Chart(document.getElementById('priceChart'), {
+            type: 'line',
+            data: {
+                labels: ibmData.dates,
+                datasets: [{
+                    label: 'IBM Price',
+                    data: ibmData.prices,
+                    borderColor: 'rgb(54, 162, 235)',
+                    tension: 0.1
+                }, {
+                    label: 'Microsoft Price',
+                    data: msftData.prices,
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Stock Price Comparison (USD)'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        // Create volume comparison chart
+        new Chart(document.getElementById('volumeChart'), {
+            type: 'bar',
+            data: {
+                labels: ibmData.dates,
+                datasets: [{
+                    label: 'IBM Volume',
+                    data: ibmData.volumes,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                }, {
+                    label: 'Microsoft Volume',
+                    data: msftData.volumes,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Trading Volume Comparison'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
